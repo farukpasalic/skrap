@@ -1,0 +1,13 @@
+{
+    "url": "https://www.google.com/search?q=brain&sca_esv=cdb79dfeeefb1ef1&sca_upv=1&sxsrf=ADLYWIIm_zjimN8NkmfXAvZNUrG6BhIxdQ%3A1725385272700&source=hp&ei=OErXZsXzJsiJ9u8P1tyi2AU&iflsig=AL9hbdgAAAAAZtdYSF26a6dHS91hz-3wfhj1TBiYNP8x&ved=0ahUKEwjF75qCqaeIAxXIhP0HHVauCFsQ4dUDCBY&uact=5&oq=brain&gs_lp=Egdnd3Mtd2l6IgVicmFpbjIEECMYJzIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIFEAAYgAQyCBAAGIAEGMsBMggQABiABBjLATIFEAAYgAQyCBAAGIAEGMsBMggQABiABBjLAUjfC1DTBFiBCnABeACQAQCYAesBoAHeBaoBBTAuNC4xuAEDyAEA-AEBmAIGoAL-BagCCsICBxAjGCcY6gLCAgoQIxiABBgnGIoFwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICCBAAGIAEGLEDmAMNkgcFMS40LjGgB78h&sclient=gws-wiz",
+    "root_xpath": "//div[@id='rso']/div",
+    "processor": "list",
+    "limit": 25,
+    "next": "//a[@id='pnnext']/@href",
+    "nodes": [
+        {
+            "name": "title",
+            "xpath": ".//div/div/div[1]/div/div/span/a/h3"
+        }
+    ]
+}

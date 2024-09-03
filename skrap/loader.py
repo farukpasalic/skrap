@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
 from abc import ABC, abstractmethod
-
+from urllib.parse import urljoin
 class BaseLoader(ABC):
     @abstractmethod
     def load(self, url):
@@ -31,8 +31,8 @@ class HTMLLoader(BaseLoader):
 
 class SeleniumLoader(BaseLoader):
 
-    def __init__(self):
-        self.driver_path = "C:\\Users\\User\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe"
+    def __init__(self, driver_path):
+        self.driver_path = driver_path
         service = Service(executable_path=self.driver_path)
 
         options = Options()
@@ -44,11 +44,20 @@ class SeleniumLoader(BaseLoader):
         self.driver = webdriver.Chrome(service=service, options=options)
 
     def load(self, url):
-        self.driver.get(url)
+
+        if not url.startswith("http"):
+            # If href is relative, construct the full URL
+            base_url = self.driver.current_url  # Get the current URL (base URL)
+            full_url = urljoin(base_url, url)
+        else:
+            full_url = url
+
+        self.driver.get(full_url)
         self.driver.implicitly_wait(2)
         return self.driver.page_source
 
     def process(self, url):
+        print(f"URL: {url}")
         data = self.load(url)
         soup = BeautifulSoup(data, 'html.parser')
         return html.fromstring(str(soup))

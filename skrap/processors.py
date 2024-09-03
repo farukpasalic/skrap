@@ -31,8 +31,10 @@ class SingleProcessor(BaseProcessor):
                     data[node.name] = lst[0].text_content().replace('\n', '').replace('\r', '').strip()
                 else:
                     data[node.name] = el.replace('\n', '').replace('\r', '').strip()
+
         if callback:
             callback(data)
+
         return data
 
 
@@ -47,30 +49,41 @@ class ListProcessor(BaseProcessor):
         data = []
         next_element = None
         url = self.config.url
-
+        cnt = 0;
         while True:
-            if self.config.limit is not None and len(data) > self.config.limit:
-                break
 
             html = self.loader.process(url)
-            element = html.xpath(self.config.root_xpath)
+            elements = html.xpath(self.config.root_xpath)
+            results = {}
 
-            for e in element:
-                partial = {}
-                for n in self.config.nodes:
-                    lst = e.xpath(n.xpath)
+            for element in elements:
+                results[element] = {}
+
+            for element in results.keys():
+                if isinstance(element, str):
+                    print(f"Root element is a string: {element}")
+                    continue
+
+                partial = results[element]
+                for node in self.config.nodes:
+                    lst = element.xpath(node.xpath)
                     if lst:
                         el = lst[0]
                         if isinstance(el, HtmlElement):
-                            partial[n.name] = lst[0].text_content().replace('\n', '').replace('\r', '').strip()
+                            partial[node.name] = lst[0].text_content().replace('\n', '').replace('\r', '').strip()
                         else:
-                            partial[n.name] = el.replace('\n', '').replace('\r', '').strip()
+                            partial[node.name] = el.replace('\n', '').replace('\r', '').strip()
 
+                if self.config.limit is not None and cnt < self.config.limit:
+                    if callback:
+                        callback(partial)
 
                     data.append(partial)
+                    cnt += 1
 
-                if callback:
-                    callback(partial)
+            if self.config.limit is not None and cnt >= self.config.limit:
+                break
+
 
             if self.config.next:
                 next_element = html.xpath(self.config.next)
@@ -84,4 +97,4 @@ class ListProcessor(BaseProcessor):
                 break
 
         self.loader.quit()
-        return data[:self.config.limit]
+        return data[:cnt]

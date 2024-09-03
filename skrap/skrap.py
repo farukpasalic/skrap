@@ -4,7 +4,7 @@ import time
 
 
 class Skrap:
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, loader=None):
         self.config = config
         self.url = config.url
         self.root_xpath = config.root_xpath
@@ -14,7 +14,7 @@ class Skrap:
         self.root = None
 
         self.processor = None
-        self.loader = SeleniumLoader()
+        self.loader = loader
         self.init_processors(config)
 
     def init_processors(self, config: Config):
