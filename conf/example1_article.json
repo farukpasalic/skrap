@@ -1,0 +1,15 @@
+{
+    "url": "https://en.wikipedia.org/wiki/List_of_animals_by_number_of_neurons",
+    "root_xpath": "//main[@class='mw-body']",
+    "processor": "single",
+    "nodes": [
+        {
+            "name": "title",
+            "xpath": ".//span[@class='mw-page-title-main']"
+        },
+        {
+            "name": "intro",
+            "xpath": ".//div[@class='mw-content-ltr mw-parser-output']/p[2]"
+        }
+    ]
+}

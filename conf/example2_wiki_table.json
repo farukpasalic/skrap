@@ -1,0 +1,19 @@
+{
+    "url": "https://en.wikipedia.org/wiki/List_of_animals_by_number_of_neurons",
+    "root_xpath": "/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/table[1]/tbody/tr",
+    "processor": "list",
+    "nodes": [
+        {
+        "name": "name",
+        "xpath": ".//td[1]"
+        },
+        {
+        "name": "number_of_neurons",
+        "xpath": ".//td[2]"
+        },
+        {
+        "name": "number_of_synapses",
+        "xpath": ".//td[3]"
+        }
+    ]
+}

@@ -17,9 +17,13 @@ class SingleProcessor(BaseProcessor):
         self.config = config
         self.loader = loader
 
-    def process(self, element: HtmlElement, callback=None):
+    def process(self, callback=None):
+
+        html = self.loader.process(self.config.url)
+        element = html.xpath(self.config.root_xpath)
+
         data = {}
-        for node in self.config_nodes:
+        for node in self.config.nodes:
             lst = element[0].xpath(node.xpath)
             if lst:
                 el = lst[0]
@@ -45,7 +49,7 @@ class ListProcessor(BaseProcessor):
         url = self.config.url
 
         while True:
-            if len(data) > self.config.limit:
+            if self.config.limit is not None and len(data) > self.config.limit:
                 break
 
             html = self.loader.process(url)
@@ -61,10 +65,12 @@ class ListProcessor(BaseProcessor):
                             partial[n.name] = lst[0].text_content().replace('\n', '').replace('\r', '').strip()
                         else:
                             partial[n.name] = el.replace('\n', '').replace('\r', '').strip()
-                        if callback:
-                            callback(el, partial)
-                data.append(partial)
 
+
+                    data.append(partial)
+
+                if callback:
+                    callback(partial)
 
             if self.config.next:
                 next_element = html.xpath(self.config.next)
@@ -74,6 +80,8 @@ class ListProcessor(BaseProcessor):
                         url = next_element[0]
                 if next_element is None:
                     break
+            else:
+                break
 
         self.loader.quit()
         return data[:self.config.limit]

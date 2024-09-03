@@ -26,4 +26,6 @@ class Config:
         node_data = data.pop('node', None)
         node = Node(**node_data) if node_data else None
         next_data = data.pop('next', None)  # Handle the case where 'next' might not be present
-        return Config(nodes=nodes, node=node, next=next_data, **data)
+        limit = data.pop('limit', None)  # Handle the case where 'next' might not be present
+
+        return Config(nodes=nodes, node=node, next=next_data, limit=limit, **data)
