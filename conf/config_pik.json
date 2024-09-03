@@ -1,0 +1,21 @@
+{
+    "url": "https://olx.ba/pretraga?q=audi",
+    "root_xpath": "//div[@class='w-full flex cardd']",
+
+    "processor": "list",
+    "limit": 5,
+    "next": "",
+    "nodes": [
+        {
+        "name": "naslov",
+        "xpath": ".//h1[@class='main-heading normal-heading']"
+        },
+        {
+        "name": "cijena",
+        "xpath": ".//span[@class='smaller']"
+        }
+    ]
+}
+
+
+

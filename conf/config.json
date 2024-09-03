@@ -1,0 +1,15 @@
+{
+    "url": "http://klix.ba",
+    "root_xpath": "/html/head",
+    "processor": "single",
+    "nodes": [
+        {
+        "name": "url",
+        "xpath": "a"
+        },
+        {
+        "name": "text",
+        "xpath": "a/@href"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "url": "https://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p4432023.m570.l1313&_nkw=smilys+returns&_sacat=0",
+    "root_xpath": "//li[@class='s-item s-item__pl-on-bottom']",
+    "processor": "list",
+    "limit": 5,
+
+
+    "nodes": [
+        {
+        "name": "text",
+        "xpath": "div/div[2]/a/div[@class='s-item__title']"
+        },
+        {
+        "name": "price",
+        "xpath": ".//span[@class='s-item__price']"
+        }
+    ]
+}
+
+
+

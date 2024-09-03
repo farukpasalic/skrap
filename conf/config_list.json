@@ -1,0 +1,25 @@
+{
+    "url": "https://www.klix.ba/najnovije",
+    "root_xpath": "/html/body/div[3]/div[2]/div[2]/div[1]/div/div/div",
+    "processor": "list",
+    "limit": 17,
+    "next": "/html/body/div[3]/div[2]/div[2]/div[1]/div/nav/div[2]/div[2]/a/@href",
+
+    "nodes": [
+        {
+        "name": "text",
+        "xpath": "article/div[2]/a"
+        },
+        {
+            "name": "url",
+            "xpath": "article/div[2]/a/@href"
+        },
+        {
+            "name": "image",
+            "xpath": "article/div[1]/div/a/picture/img/@data-srcset"
+        }
+    ]
+}
+
+
+
