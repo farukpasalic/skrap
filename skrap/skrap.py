@@ -4,7 +4,7 @@ import time
 
 
 class Skrap:
-    def __init__(self, config: Config, loader=None):
+    def __init__(self, config: Config, loader=None, parse_method=None):
         self.config = config
         self.url = config.url
         self.root_xpath = config.root_xpath
@@ -15,6 +15,7 @@ class Skrap:
 
         self.processor = None
         self.loader = loader
+        self.parse_method = parse_method
         self.init_processors(config)
 
     def init_processors(self, config: Config):
@@ -23,7 +24,7 @@ class Skrap:
             self.processor = SingleProcessor(self.loader, config)
         if self.processor_name == 'list':
             from skrap.processors import ListProcessor
-            self.processor = ListProcessor(self.loader, config)
+            self.processor = ListProcessor(self.loader, config, parse_method=self.parse_method)
 
 
 

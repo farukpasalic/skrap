@@ -4,8 +4,7 @@
     "processor": "list",
     "nodes": [
         {
-            "name": "text",
-            "xpath": "string()"
+            "name": "text"
         }
     ]
 }
