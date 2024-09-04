@@ -1,0 +1,11 @@
+{
+    "url": "https://scrumguides.org/scrum-guide.html",
+    "root_xpath": "/html/body/div[1]/div/div/div/div[2][@class='col-md-9']/*",
+    "processor": "list",
+    "nodes": [
+        {
+            "name": "text",
+            "xpath": "string()"
+        }
+    ]
+}

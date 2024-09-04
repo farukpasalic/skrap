@@ -2,11 +2,12 @@ from skrap.config import Config
 from skrap.skrap import Skrap, SeleniumLoader
 import json
 
-config = Config.from_json('conf/example1_article.json')
+#config = Config.from_json('conf/example1_article.json')
 #config = Config.from_json('conf/example2_wiki_table.json')
 #config = Config.from_json('conf/example3_link_list.json')
 #config = Config.from_json('conf/example4_google.json')
 
+config = Config.from_json('conf/scrum_guide.json')
 
 loader = SeleniumLoader(driver_path=r"C:\Users\User\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
 

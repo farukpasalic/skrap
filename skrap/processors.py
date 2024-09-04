@@ -4,6 +4,7 @@ from typing import List
 from lxml.html import HtmlElement
 from skrap.config import Config, Node
 from skrap.loader import BaseLoader
+from lxml import html as H
 
 class BaseProcessor(ABC):
     @abstractmethod
@@ -67,6 +68,10 @@ class ListProcessor(BaseProcessor):
                 partial = results[element]
                 for node in self.config.nodes:
                     lst = element.xpath(node.xpath)
+
+                    if isinstance(lst, str):
+                        lst = [H.fromstring("<p>" + lst + "</p>")]
+
                     if lst:
                         el = lst[0]
                         if isinstance(el, HtmlElement):
@@ -74,7 +79,7 @@ class ListProcessor(BaseProcessor):
                         else:
                             partial[node.name] = el.replace('\n', '').replace('\r', '').strip()
 
-                if self.config.limit is not None and cnt < self.config.limit:
+                if (self.config.limit is None) or (self.config.limit is not None and cnt < self.config.limit):
                     if callback:
                         callback(partial)
 
