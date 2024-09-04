@@ -5,7 +5,7 @@ from typing import List
 @dataclass
 class Node:
     name: str
-    xpath: str
+    xpath: str = None
 
 @dataclass
 class Config:

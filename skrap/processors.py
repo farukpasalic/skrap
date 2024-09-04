@@ -4,7 +4,7 @@ from typing import List
 from lxml.html import HtmlElement
 from skrap.config import Config, Node
 from skrap.loader import BaseLoader
-from lxml import html as H
+
 
 class BaseProcessor(ABC):
     @abstractmethod
@@ -41,9 +41,16 @@ class SingleProcessor(BaseProcessor):
 
 class ListProcessor(BaseProcessor):
 
-    def __init__(self, loader: BaseLoader,  config: Config):
+    def __init__(self, loader: BaseLoader,  config: Config, parse_method=None):
         self.config = config
         self.loader = loader
+        if parse_method:
+            self.parse_method = parse_method
+        else:
+            self.parse_method = self.default_parse
+
+    def default_parse(self, element: HtmlElement):
+        return element.text_content().replace('\n', '').replace('\r', '').strip()
 
     def process(self, callback=None):
 
@@ -67,15 +74,15 @@ class ListProcessor(BaseProcessor):
 
                 partial = results[element]
                 for node in self.config.nodes:
-                    lst = element.xpath(node.xpath)
-
-                    if isinstance(lst, str):
-                        lst = [H.fromstring("<p>" + lst + "</p>")]
+                    if node.xpath:
+                        lst = element.xpath(node.xpath)
+                    else:
+                        lst = [element]
 
                     if lst:
                         el = lst[0]
                         if isinstance(el, HtmlElement):
-                            partial[node.name] = el.text_content().replace('\n', '').replace('\r', '').strip()
+                            partial[node.name] = self.parse_method(el)
 
 
                 if (self.config.limit is None) or (self.config.limit is not None and cnt < self.config.limit):
