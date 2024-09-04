@@ -75,9 +75,8 @@ class ListProcessor(BaseProcessor):
                     if lst:
                         el = lst[0]
                         if isinstance(el, HtmlElement):
-                            partial[node.name] = lst[0].text_content().replace('\n', '').replace('\r', '').strip()
-                        else:
-                            partial[node.name] = el.replace('\n', '').replace('\r', '').strip()
+                            partial[node.name] = el.text_content().replace('\n', '').replace('\r', '').strip()
+
 
                 if (self.config.limit is None) or (self.config.limit is not None and cnt < self.config.limit):
                     if callback:
